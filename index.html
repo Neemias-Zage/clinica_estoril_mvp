@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="pt-AO">
+<html lang="pt-AO" class="preloading">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -505,9 +505,50 @@
     .unit-pick{ flex-direction:column; }
     .stat-strip{ grid-template-columns:1fr; }
   }
+
+  /* ---------- Preloader ---------- */
+  html.preloading, html.preloading body{ overflow:hidden; height:100%; }
+  #preloader{
+    position:fixed; inset:0; z-index:100;
+    background:var(--navy);
+    display:flex; align-items:center; justify-content:center; flex-direction:column; gap:18px;
+    transition:opacity .6s ease, visibility .6s ease;
+  }
+  #preloader.hidden{ opacity:0; visibility:hidden; pointer-events:none; }
+  .preloader-mark{
+    width:64px; height:64px; border-radius:16px; object-fit:cover;
+    box-shadow:0 14px 34px -14px rgba(0,0,0,.55);
+    opacity:0; animation:markFade .6s ease .1s forwards;
+  }
+  @keyframes markFade{ to{ opacity:1; } }
+  .preloader-text{
+    font-family:var(--serif); font-weight:600; color:var(--white);
+    font-size:clamp(24px,5vw,34px); letter-spacing:.01em;
+    display:inline-flex; align-items:baseline;
+  }
+  .preloader-text .cursor{
+    display:inline-block; width:2px; height:1em; margin-left:3px;
+    background:var(--gold); animation:blink .8s step-end infinite;
+    transform:translateY(2px);
+  }
+  .preloader-sub{
+    font-size:13px; color:#9FB7D2; letter-spacing:.04em;
+    opacity:0; animation:markFade .6s ease 1.3s forwards;
+  }
+  @keyframes blink{ 50%{ opacity:0; } }
+  @media (prefers-reduced-motion: reduce){
+    #preloader{ transition:none; }
+    .preloader-mark, .preloader-sub{ animation:none; opacity:1; }
+  }
 </style>
 </head>
 <body>
+
+<div id="preloader" aria-hidden="true">
+  <img src="img/logo.jpg" alt="" class="preloader-mark">
+  <div class="preloader-text"><span id="preloaderType"></span><span class="cursor"></span></div>
+  <div class="preloader-sub">A sua saúde nas melhores mãos</div>
+</div>
 
 <div class="scroll-progress" id="scrollProgress"></div>
 
@@ -864,6 +905,43 @@
 
 <script>
 (function(){
+
+  // ---------- Preloader typewriter ----------
+  (function initPreloader(){
+    var text = "Clínica Estoril";
+    var target = document.getElementById('preloaderType');
+    var preloader = document.getElementById('preloader');
+    if(!preloader || !target){ document.documentElement.classList.remove('preloading'); return; }
+
+    var reduceMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+    function finish(){
+      preloader.classList.add('hidden');
+      document.documentElement.classList.remove('preloading');
+      setTimeout(function(){ if(preloader.parentNode){ preloader.parentNode.removeChild(preloader); } }, 650);
+    }
+
+    if(reduceMotion){
+      target.textContent = text;
+      setTimeout(finish, 500);
+      return;
+    }
+
+    var i = 0;
+    function typeNext(){
+      if(i <= text.length){
+        target.textContent = text.slice(0, i);
+        i++;
+        setTimeout(typeNext, 65);
+      } else {
+        setTimeout(finish, 700);
+      }
+    }
+    setTimeout(typeNext, 350);
+
+    // Safety net: never trap the visitor behind the preloader.
+    setTimeout(finish, 4500);
+  })();
 
   // ---------- Data ----------
   var specialties = [
