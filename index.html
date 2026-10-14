@@ -1,0 +1,1032 @@
+<!DOCTYPE html>
+<html lang="pt-AO">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clínica Estoril — A sua saúde nas melhores mãos</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+
+  :root{
+    --navy:        #0F2A4A;
+    --blue:        #1D5FA6;
+    --blue-dark:   #164A85;
+    --blue-tint:   #EAF2FB;
+    --blue-tint-2: #F5F9FD;
+    --gold:        #C79A4B;
+    --ink:         #223140;
+    --ink-soft:    #5B6B7A;
+    --line:        #DCE6F0;
+    --white:       #FFFFFF;
+    --ok:          #2F9E6B;
+
+    --serif: 'Fraunces', Georgia, serif;
+    --sans:  'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+
+    --maxw: 1120px;
+  }
+
+  *{ box-sizing:border-box; }
+  html{ scroll-behavior:smooth; }
+  body{
+    margin:0;
+    font-family:var(--sans);
+    color:var(--ink);
+    background:var(--white);
+    -webkit-font-smoothing:antialiased;
+  }
+  img,svg{ display:block; max-width:100%; }
+  a{ color:inherit; text-decoration:none; }
+  ul{ margin:0; padding:0; list-style:none; }
+  button{ font-family:inherit; cursor:pointer; }
+  h1,h2,h3,h4{ font-family:var(--serif); margin:0; color:var(--navy); font-weight:600; }
+  p{ margin:0; line-height:1.6; color:var(--ink-soft); }
+
+  :focus-visible{ outline:2px solid var(--blue); outline-offset:3px; }
+
+  .wrap{ max-width:var(--maxw); margin:0 auto; padding:0 clamp(20px, 4vw, 28px); }
+
+  /* ---------- Proposal ribbon ---------- */
+  .proposal-ribbon{
+    background:var(--navy);
+    color:#CFE0F2;
+    font-size:13px;
+    text-align:center;
+    padding:8px 16px;
+    letter-spacing:.01em;
+  }
+  .proposal-ribbon strong{ color:var(--white); font-weight:600; }
+
+  /* ---------- Header ---------- */
+  header.site{
+    position:sticky; top:0; z-index:40;
+    background:rgba(255,255,255,.92);
+    backdrop-filter:blur(8px);
+    border-bottom:1px solid var(--line);
+  }
+  .nav-row{
+    display:flex; align-items:center; justify-content:space-between;
+    gap:16px; padding:12px clamp(20px, 4vw, 28px);
+    max-width:var(--maxw); margin:0 auto;
+  }
+  .logo{
+    display:flex; align-items:center; gap:10px;
+    font-family:var(--serif); font-weight:600; font-size:19px; color:var(--navy);
+    flex:none;
+  }
+  .logo .mark{
+    width:42px; height:42px; flex:none;
+    border-radius:10px;
+    object-fit:cover;
+    object-position:center;
+    display:block;
+    border:1px solid var(--line);
+  }
+  nav.primary{ display:flex; gap:clamp(14px, 2.2vw, 28px); }
+  nav.primary button{
+    background:none; border:none; padding:6px 2px; font-size:15px; color:var(--ink-soft);
+    border-bottom:2px solid transparent; white-space:nowrap;
+  }
+  nav.primary button:hover{ color:var(--navy); }
+  nav.primary button.active{ color:var(--navy); border-color:var(--gold); font-weight:600; }
+
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    padding:12px 22px; border-radius:8px; font-size:15px; font-weight:600;
+    border:1px solid transparent; transition:transform .15s ease, box-shadow .15s ease;
+  }
+  .btn-primary{ background:var(--blue); color:var(--white); }
+  .btn-primary:hover{ background:var(--blue-dark); }
+  .btn-ghost{ background:transparent; color:var(--navy); border-color:var(--line); }
+  .btn-ghost:hover{ border-color:var(--blue); }
+  .btn-block{ width:100%; justify-content:center; }
+
+  .nav-toggle{
+    display:none; background:none; border:1px solid var(--line); border-radius:8px;
+    padding:8px 10px; color:var(--navy);
+  }
+
+  /* ---------- Views ---------- */
+  .view{ display:none; }
+  .view.active{ display:block; animation:rise .55s cubic-bezier(.22,.8,.3,1) both; }
+  @keyframes rise{ from{ opacity:0; transform:translateY(14px) scale(.99);} to{ opacity:1; transform:translateY(0) scale(1);} }
+
+  /* ---------- Scroll progress bar ---------- */
+  .scroll-progress{
+    position:fixed; top:0; left:0; height:3px; width:0%; z-index:60;
+    background:linear-gradient(90deg, var(--gold), var(--blue));
+    transition:width .1s linear;
+  }
+
+  /* ---------- Reveal-on-scroll ---------- */
+  .reveal{
+    opacity:0; transform:translateY(26px);
+    transition:opacity .7s cubic-bezier(.22,.8,.3,1), transform .7s cubic-bezier(.22,.8,.3,1);
+  }
+  .reveal.in-view{ opacity:1; transform:translateY(0); }
+  .reveal-group .reveal:nth-child(1){ transition-delay:.04s; }
+  .reveal-group .reveal:nth-child(2){ transition-delay:.10s; }
+  .reveal-group .reveal:nth-child(3){ transition-delay:.16s; }
+  .reveal-group .reveal:nth-child(4){ transition-delay:.22s; }
+  .reveal-group .reveal:nth-child(5){ transition-delay:.28s; }
+  .reveal-group .reveal:nth-child(6){ transition-delay:.34s; }
+  .reveal-group .reveal:nth-child(n+7){ transition-delay:.38s; }
+
+  /* ---------- Hero entrance ---------- */
+  .hero-grid > div:first-child > *{ opacity:0; transform:translateY(16px); animation:heroIn .7s cubic-bezier(.22,.8,.3,1) both; }
+  .hero h1{ animation-delay:.05s; }
+  .hero p.lead{ animation-delay:.16s; }
+  .hero-ctas{ animation-delay:.27s; }
+  .quick-links{ animation-delay:.38s; }
+  .hero-art{ opacity:0; transform:translateY(16px) scale(.97); animation:heroIn .8s cubic-bezier(.22,.8,.3,1) .2s both; }
+  @keyframes heroIn{ to{ opacity:1; transform:translateY(0) scale(1); } }
+
+  .stat-card{ animation:floatCard 5s ease-in-out infinite; }
+  .stat-card:nth-child(3){ animation-delay:1.4s; }
+  @keyframes floatCard{ 0%,100%{ transform:translateY(0);} 50%{ transform:translateY(-8px);} }
+
+  /* ---------- Header scroll state ---------- */
+  header.site{ transition:box-shadow .3s ease, padding .3s ease; }
+  header.site.scrolled{ box-shadow:0 10px 24px -20px rgba(15,42,74,.5); }
+  header.site.scrolled .nav-row{ padding-top:8px; padding-bottom:8px; }
+  .logo .mark{ transition:transform .4s cubic-bezier(.34,1.56,.64,1); }
+  .logo:hover .mark{ transform:rotate(-6deg) scale(1.06); }
+
+  nav.primary button{ position:relative; transition:color .2s ease; }
+  nav.primary button::after{
+    content:''; position:absolute; left:2px; right:2px; bottom:-1px; height:2px;
+    background:var(--gold); transform:scaleX(0); transform-origin:left; transition:transform .25s ease;
+  }
+  nav.primary button:hover::after{ transform:scaleX(1); }
+  nav.primary button.active::after{ transform:scaleX(1); }
+
+  /* ---------- Buttons ---------- */
+  .btn{ transition:transform .2s cubic-bezier(.34,1.56,.64,1), box-shadow .2s ease, background .2s ease; }
+  .btn-primary{ box-shadow:0 6px 16px -8px rgba(29,95,166,.6); }
+  .btn-primary:hover{ transform:translateY(-2px); box-shadow:0 12px 24px -10px rgba(29,95,166,.55); }
+  .btn-primary:active{ transform:translateY(0) scale(.97); }
+  .btn-ghost:hover{ transform:translateY(-2px); }
+  .btn-ghost:active{ transform:translateY(0) scale(.97); }
+
+  .quick-links button{ transition:transform .25s cubic-bezier(.34,1.56,.64,1), border-color .2s ease, box-shadow .25s ease; }
+  .quick-links button:hover{ transform:translateY(-4px); box-shadow:0 14px 26px -18px rgba(15,42,74,.4); }
+  .quick-links svg{ transition:transform .3s cubic-bezier(.34,1.56,.64,1); }
+  .quick-links button:hover svg{ transform:scale(1.15) rotate(-4deg); }
+
+  @media (prefers-reduced-motion: reduce){
+    .view.active{ animation:none; }
+    .reveal{ opacity:1; transform:none; transition:none; }
+    .hero-grid > div:first-child > *, .hero-art{ opacity:1; transform:none; animation:none; }
+    .stat-card{ animation:none; }
+    .btn, .quick-links button, .card, .campaign-card, .unit-card, .exam-chip{ transition:none !important; }
+  }
+
+  section{ padding:76px 0; }
+  .section-head{ max-width:640px; margin-bottom:44px; }
+  .eyebrow{ font-size:14px; color:var(--blue); font-weight:600; margin-bottom:10px; display:block; }
+  .section-head h2{ font-size:clamp(28px,3.6vw,38px); line-height:1.15; margin-bottom:14px; }
+  .section-head p{ font-size:17px; }
+  .bg-tint{ background:var(--blue-tint-2); }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    background:linear-gradient(180deg, var(--blue-tint) 0%, var(--white) 78%);
+    padding:64px 0 40px;
+  }
+  .hero-grid{
+    display:grid; grid-template-columns:1.05fr .95fr; gap:56px; align-items:center;
+  }
+  .hero h1{
+    font-size:clamp(34px,4.6vw,54px); line-height:1.08; letter-spacing:-.01em;
+    margin-bottom:20px;
+  }
+  .hero p.lead{ font-size:18px; max-width:480px; margin-bottom:30px; }
+  .hero-ctas{ display:flex; gap:14px; flex-wrap:wrap; margin-bottom:40px; }
+
+  .quick-links{
+    display:grid; grid-template-columns:repeat(3,1fr); gap:10px; max-width:560px;
+  }
+  .quick-links button{
+    background:var(--white); border:1px solid var(--line); border-radius:10px;
+    padding:14px 12px; font-size:13.5px; font-weight:600; color:var(--navy);
+    text-align:left; display:flex; flex-direction:column; gap:8px;
+  }
+  .quick-links button:hover{ border-color:var(--blue); }
+  .quick-links svg{ width:20px; height:20px; }
+
+  .hero-art{ position:relative; min-height:430px; }
+  .hero-photo{
+    height:430px; overflow:hidden; border-radius:28px;
+    background:var(--blue-tint); box-shadow:0 24px 54px -30px rgba(15,42,74,.45);
+  }
+  .hero-photo::after{
+    content:''; position:absolute; inset:0; border-radius:28px;
+    background:linear-gradient(135deg, rgba(15,42,74,.18), transparent 55%);
+    pointer-events:none;
+  }
+  .hero-photo img{ width:100%; height:100%; object-fit:cover; object-position:center; }
+  .stat-card{
+    position:absolute; background:var(--white); border:1px solid var(--line);
+    border-radius:12px; padding:14px 18px; box-shadow:0 12px 30px -14px rgba(15,42,74,.28);
+  }
+  .stat-card .n{ font-family:var(--serif); font-size:26px; color:var(--navy); font-weight:700; }
+  .stat-card .l{ font-size:12.5px; color:var(--ink-soft); }
+
+  /* ---------- Specialties grid ---------- */
+  .grid-cards{ display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+  .card{
+    border:1px solid var(--line); border-radius:12px; padding:24px;
+    background:var(--white);
+    transition:transform .3s cubic-bezier(.22,.8,.3,1), box-shadow .3s ease, border-color .3s ease;
+  }
+  .card:hover{
+    transform:translateY(-6px);
+    box-shadow:0 20px 34px -24px rgba(15,42,74,.4);
+    border-color:var(--blue);
+  }
+  .card .icon{
+    width:42px; height:42px; border-radius:10px; background:var(--blue-tint);
+    display:flex; align-items:center; justify-content:center; margin-bottom:16px;
+    transition:transform .35s cubic-bezier(.34,1.56,.64,1), background .3s ease;
+  }
+  .card:hover .icon{ transform:scale(1.1) rotate(-6deg); background:var(--blue); }
+  .card:hover .icon svg{ stroke:var(--white); }
+  .card .icon svg{ width:22px; height:22px; stroke:var(--blue); transition:stroke .3s ease; }
+  .card h4{ font-size:17px; margin-bottom:8px; }
+  .card p{ font-size:14.5px; }
+  .card .tag{
+    display:inline-block; margin-top:14px; font-size:12.5px; font-weight:600; color:var(--blue);
+    transition:transform .25s ease;
+  }
+  .card:hover .tag{ transform:translateX(4px); }
+  .more-note{
+    grid-column:1/-1; text-align:center; color:var(--ink-soft); font-size:14.5px; padding-top:6px;
+  }
+
+  /* ---------- About ---------- */
+  .about-grid{ display:grid; grid-template-columns:1fr 1fr; gap:60px; align-items:start; }
+  .about-copy p{ font-size:16px; margin-bottom:16px; }
+  .stat-strip{ display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:32px; }
+  .stat-strip div{ border-top:2px solid var(--gold); padding-top:10px; }
+  .stat-strip .n{ font-family:var(--serif); font-size:28px; color:var(--navy); font-weight:700; }
+  .stat-strip .l{ font-size:13px; color:var(--ink-soft); }
+
+  .draft-note{
+    margin-top:28px; font-size:13.5px; background:var(--blue-tint-2);
+    border-left:3px solid var(--gold); padding:12px 16px; border-radius:0 8px 8px 0;
+    color:var(--ink-soft);
+  }
+
+  .mission-card{
+    background:var(--navy); border-radius:16px; padding:38px;
+    color:var(--blue-tint);
+  }
+  .mission-card h3{ color:var(--white); font-size:22px; margin-bottom:14px; }
+  .mission-card p{ color:#C8D8EA; font-size:15.5px; }
+
+  /* ---------- Units ---------- */
+  .unit-grid{ display:grid; grid-template-columns:1fr 1fr; gap:22px; }
+  .unit-card{
+    border:1px solid var(--line); border-radius:14px; overflow:hidden; background:var(--white);
+    transition:transform .35s cubic-bezier(.22,.8,.3,1), box-shadow .35s ease;
+  }
+  .unit-card:hover{ transform:translateY(-6px); box-shadow:0 24px 40px -28px rgba(15,42,74,.45); }
+  .unit-map{
+    height:170px; position:relative; overflow:hidden; color:var(--white); font-weight:600; font-size:13px;
+  }
+  .unit-map img{ width:100%; height:100%; object-fit:cover; transition:transform .6s cubic-bezier(.22,.8,.3,1); }
+  .unit-card:hover .unit-map img{ transform:scale(1.08); }
+  .unit-map span{
+    position:absolute; left:16px; bottom:14px; padding:7px 10px; border-radius:7px;
+    background:rgba(15,42,74,.82); backdrop-filter:blur(4px);
+  }
+  .unit-body{ padding:22px; }
+  .unit-body h4{ font-size:19px; margin-bottom:6px; }
+  .unit-body .addr{ font-size:14.5px; margin-bottom:14px; }
+  .unit-meta{ display:flex; flex-direction:column; gap:8px; font-size:14px; color:var(--ink); margin-bottom:18px; }
+  .unit-meta span{ display:flex; gap:8px; align-items:center; }
+  .unit-meta svg{ width:16px; height:16px; stroke:var(--blue); flex:none; }
+  .unit-actions{ display:flex; gap:10px; }
+
+  /* ---------- Exams ---------- */
+  .exam-list{ display:grid; grid-template-columns:repeat(4,1fr); gap:14px; }
+  .exam-chip{
+    border:1px solid var(--line); border-radius:10px; padding:16px;
+    font-size:14px; font-weight:600; color:var(--navy);
+    display:flex; align-items:center; gap:10px;
+    transition:transform .25s cubic-bezier(.22,.8,.3,1), border-color .25s ease, background .25s ease;
+  }
+  .exam-chip:hover{ transform:translateX(5px); border-color:var(--blue); background:var(--blue-tint-2); }
+  .exam-chip::before{
+    content:''; width:8px; height:8px; border-radius:50%; background:var(--gold); flex:none;
+    transition:transform .3s ease;
+  }
+  .exam-chip:hover::before{ transform:scale(1.6); }
+
+  /* ---------- Campaigns ---------- */
+  .campaign-grid{ display:grid; grid-template-columns:1.2fr 1fr 1fr; gap:18px; }
+  .campaign-card{
+    border-radius:14px; padding:26px; min-height:210px;
+    display:flex; flex-direction:column; justify-content:flex-end; gap:8px;
+    position:relative; overflow:hidden;
+  }
+  .campaign-card{ transition:transform .35s cubic-bezier(.22,.8,.3,1), box-shadow .35s ease; }
+  .campaign-card:hover{ transform:translateY(-6px); box-shadow:0 22px 38px -24px rgba(15,42,74,.45); }
+  .campaign-card::before{ content:''; position:absolute; inset:0; background-size:cover; background-position:center; z-index:0; transition:transform .6s cubic-bezier(.22,.8,.3,1); }
+  .campaign-card:hover::before{ transform:scale(1.08); }
+  .campaign-card > *{ position:relative; z-index:1; }
+  .campaign-card .go{ display:inline-flex; transition:transform .25s ease; }
+  .campaign-card:hover .go{ transform:translateX(5px); }
+  .campaign-card.c1{ background:var(--navy); color:var(--white); }
+  .campaign-card.c1::before{ background-image:linear-gradient(135deg,rgba(15,42,74,.95),rgba(29,95,166,.63)),url('https://images.unsplash.com/photo-1505751172876-fa1923c5c528?auto=format&fit=crop&w=1100&q=80'); }
+  .campaign-card.c2{ background:var(--blue-tint); }
+  .campaign-card.c2::before{ background-image:linear-gradient(rgba(234,242,251,.90),rgba(234,242,251,.90)),url('https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?auto=format&fit=crop&w=900&q=80'); }
+  .campaign-card.c3{ background:var(--white); border:1px solid var(--line); }
+  .campaign-card.c3::before{ background-image:linear-gradient(rgba(255,255,255,.88),rgba(255,255,255,.88)),url('https://images.unsplash.com/photo-1584982751601-97dcc096659c?auto=format&fit=crop&w=900&q=80'); }
+  .campaign-card .badge{
+    align-self:flex-start; font-size:12px; font-weight:700; padding:5px 10px; border-radius:100px;
+    background:rgba(255,255,255,.18); color:var(--white); margin-bottom:auto;
+  }
+  .campaign-card.c2 .badge, .campaign-card.c3 .badge{ background:var(--blue-tint-2); color:var(--blue); }
+  .campaign-card h4{ font-size:19px; }
+  .campaign-card.c1 h4{ color:var(--white); }
+  .campaign-card p{ font-size:14px; }
+  .campaign-card.c1 p{ color:#D9E6F5; }
+  .campaign-card .go{ font-size:13.5px; font-weight:600; margin-top:6px; }
+  .campaign-card.c1 .go{ color:var(--gold); }
+  .campaign-card.c2 .go, .campaign-card.c3 .go{ color:var(--blue); }
+
+  /* ---------- Booking ---------- */
+  .booking-grid{ display:grid; grid-template-columns:1fr 1.3fr; gap:52px; align-items:start; }
+  .booking-side h3{ font-size:24px; margin-bottom:14px; }
+  .booking-side p{ margin-bottom:20px; }
+  .booking-side ul{ display:flex; flex-direction:column; gap:14px; }
+  .booking-side li{ display:flex; gap:12px; font-size:14.5px; color:var(--ink); }
+  .step-n{
+    width:24px; height:24px; border-radius:50%; background:var(--blue-tint); color:var(--blue);
+    font-size:12.5px; font-weight:700; display:flex; align-items:center; justify-content:center; flex:none;
+  }
+
+  form.booking{
+    border:1px solid var(--line); border-radius:16px; padding:32px; background:var(--white);
+    box-shadow:0 20px 44px -28px rgba(15,42,74,.35);
+  }
+  .field-row{ display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-bottom:16px; }
+  .field{ display:flex; flex-direction:column; gap:6px; margin-bottom:16px; }
+  .field label{ font-size:13px; font-weight:600; color:var(--navy); }
+  .field select, .field input, .field textarea{
+    border:1px solid var(--line); border-radius:8px; padding:11px 12px; font-size:14.5px;
+    font-family:inherit; color:var(--ink); background:var(--white);
+    min-width:0;
+  }
+  .field select:focus, .field input:focus, .field textarea:focus{ border-color:var(--blue); box-shadow:0 0 0 3px rgba(29,95,166,.12); }
+  .field select, .field input, .field textarea{ transition:border-color .2s ease, box-shadow .2s ease; }
+  .unit-pick{ display:flex; gap:10px; }
+  .unit-pick label{
+    flex:1; border:1px solid var(--line); border-radius:8px; padding:11px 12px; font-size:14px;
+    display:flex; align-items:center; gap:8px; cursor:pointer; font-weight:500; color:var(--ink);
+    transition:border-color .2s ease, background .2s ease, transform .2s ease;
+  }
+  .unit-pick label:hover{ border-color:var(--blue); transform:translateY(-1px); }
+  .unit-pick input{ accent-color:var(--blue); }
+  .unit-pick label:has(input:checked){ border-color:var(--blue); background:var(--blue-tint-2); }
+
+  form.booking{ transition:opacity .3s ease, transform .3s ease; }
+  form.booking.leaving{ opacity:0; transform:scale(.97); }
+
+  .booking-success{
+    display:none; text-align:center; padding:28px 10px;
+  }
+  .booking-success.active{ display:block; animation:popIn .5s cubic-bezier(.34,1.56,.64,1) both; }
+  @keyframes popIn{ from{ opacity:0; transform:scale(.92) translateY(10px); } to{ opacity:1; transform:scale(1) translateY(0); } }
+  .booking-success .tick{
+    width:52px; height:52px; border-radius:50%; background:#E4F5EC; color:var(--ok);
+    display:flex; align-items:center; justify-content:center; margin:0 auto 16px;
+    animation:tickPop .5s cubic-bezier(.34,1.56,.64,1) .15s both;
+  }
+  @keyframes tickPop{ from{ transform:scale(0); } to{ transform:scale(1); } }
+  .booking-success .tick svg{ stroke-dasharray:24; stroke-dashoffset:24; animation:tickDraw .4s ease .45s forwards; }
+  @keyframes tickDraw{ to{ stroke-dashoffset:0; } }
+  .booking-success h4{ font-size:19px; margin-bottom:8px; }
+  .booking-success p{ font-size:14.5px; }
+
+  /* ---------- Contact ---------- */
+  .contact-grid{ display:grid; grid-template-columns:1fr 1fr; gap:18px; }
+  .contact-card{
+    border:1px solid var(--line); border-radius:14px; padding:24px;
+    transition:transform .3s cubic-bezier(.22,.8,.3,1), box-shadow .3s ease, border-color .3s ease;
+  }
+  .contact-card:hover{ transform:translateY(-5px); box-shadow:0 18px 30px -22px rgba(15,42,74,.4); border-color:var(--blue); }
+  .contact-card h4{ font-size:16px; margin-bottom:10px; }
+  .contact-card p{ font-size:14.5px; margin-bottom:4px; }
+  .social-row{ display:flex; gap:10px; margin-top:20px; }
+  .social-row a{
+    width:38px; height:38px; border-radius:50%; border:1px solid var(--line);
+    display:flex; align-items:center; justify-content:center;
+    transition:transform .3s cubic-bezier(.34,1.56,.64,1), background .25s ease, border-color .25s ease;
+  }
+  .social-row a:hover{ transform:translateY(-4px) scale(1.08); background:var(--blue); border-color:var(--blue); }
+  .social-row a:hover svg{ stroke:var(--white); }
+  .social-row svg{ width:16px; height:16px; stroke:var(--navy); transition:stroke .25s ease; }
+
+  /* ---------- Footer ---------- */
+  footer{
+    background:var(--navy); color:#B9CCE0; padding:44px 0 28px; margin-top:40px;
+  }
+  .footer-row{ display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:18px; }
+  footer .logo{ color:var(--white); }
+  footer p{ color:#8CA5C0; font-size:13px; }
+  .footer-note{
+    border-top:1px solid rgba(255,255,255,.12); margin-top:28px; padding-top:18px;
+    font-size:12.5px; color:#7590AE; display:flex; justify-content:space-between; flex-wrap:wrap; gap:8px;
+  }
+
+  /* ---------- Responsive ---------- */
+  @media (max-width:900px){
+    .nav-row{ position:relative; }
+    #ctaBook{ display:none !important; }
+    nav.primary{ display:none; }
+    nav.primary.open{
+      display:flex; position:absolute; z-index:50; top:calc(100% + 1px); left:0; right:0;
+      flex-direction:column; gap:0; padding:8px clamp(20px, 4vw, 28px) 16px;
+      background:var(--white); border-bottom:1px solid var(--line); box-shadow:0 14px 22px -20px rgba(15,42,74,.45);
+    }
+    nav.primary.open button{ width:100%; padding:12px 2px; text-align:left; }
+    .nav-toggle{ display:inline-flex; }
+    .hero-grid, .about-grid, .booking-grid{ grid-template-columns:1fr; }
+    .hero-art{ min-height:350px; }
+    .hero-photo{ height:350px; }
+    .grid-cards{ grid-template-columns:repeat(2,1fr); }
+    .exam-list{ grid-template-columns:repeat(2,1fr); }
+    .campaign-grid{ grid-template-columns:1fr; }
+    .unit-grid, .contact-grid{ grid-template-columns:1fr; }
+    .stat-strip{ grid-template-columns:repeat(2,1fr); }
+    .field-row{ grid-template-columns:1fr; }
+  }
+  @media (max-width:560px){
+    .proposal-ribbon{ padding:8px 14px; font-size:12px; line-height:1.45; }
+    .nav-row{ padding-top:10px; padding-bottom:10px; }
+    .logo{ gap:8px; font-size:17px; min-width:0; }
+    .logo .mark{ width:38px; height:38px; border-radius:9px; }
+    .nav-toggle{ padding:8px 9px; flex:none; }
+    .hero{ padding:44px 0 28px; }
+    .hero h1{ font-size:clamp(32px, 10vw, 42px); }
+    .hero p.lead{ font-size:16px; }
+    .hero-ctas{ display:grid; grid-template-columns:1fr; gap:10px; margin-bottom:28px; }
+    .hero-ctas .btn{ width:100%; justify-content:center; }
+    .hero-art{ min-height:270px; }
+    .hero-photo{ height:270px; border-radius:20px; }
+    .hero-photo::after{ border-radius:20px; }
+    .grid-cards{ grid-template-columns:1fr; }
+    .exam-list{ grid-template-columns:1fr; }
+    .quick-links{ grid-template-columns:1fr 1fr; }
+    .quick-links button{ min-height:92px; padding:12px; }
+    section{ padding:52px 0; }
+    .section-head{ margin-bottom:30px; }
+    .section-head p{ font-size:16px; }
+    .card, .contact-card{ padding:20px; }
+    .mission-card, form.booking{ padding:24px 20px; }
+    .unit-body{ padding:20px; }
+    .unit-actions{ flex-direction:column; }
+    .unit-actions .btn{ width:100%; justify-content:center; }
+    .stat-strip{ gap:12px; margin-top:24px; }
+    .campaign-card{ min-height:180px; padding:22px; }
+    .footer-row{ align-items:flex-start; flex-direction:column; gap:8px; }
+    .footer-note{ flex-direction:column; gap:10px; }
+  }
+  @media (max-width:360px){
+    .wrap{ padding-left:16px; padding-right:16px; }
+    .nav-row{ padding-left:16px; padding-right:16px; gap:10px; }
+    .logo{ font-size:16px; }
+    .logo .mark{ width:34px; height:34px; }
+    .quick-links{ grid-template-columns:1fr; }
+    .unit-pick{ flex-direction:column; }
+    .stat-strip{ grid-template-columns:1fr; }
+  }
+</style>
+</head>
+<body>
+
+<div class="scroll-progress" id="scrollProgress"></div>
+
+<div class="proposal-ribbon">
+  Protótipo comercial navegável — <strong>Clínica Estoril Digital</strong> · proposta preparada pela Prime Tech Solutions
+</div>
+
+<header class="site">
+  <div class="nav-row">
+    <div class="logo">
+      <a href=""><img src="img/logo.jpg" alt="Clínica Estoril" class="mark"></a>
+      Clínica Estoril
+    </div>
+    <nav class="primary" id="primaryNav">
+      <button data-view="inicio" class="active">Início</button>
+      <button data-view="sobre">Sobre nós</button>
+      <button data-view="especialidades">Especialidades</button>
+      <button data-view="exames">Exames</button>
+      <button data-view="unidades">Unidades</button>
+      <button data-view="campanhas">Campanhas</button>
+      <button data-view="contactos">Contactos</button>
+    </nav>
+    <div style="display:flex; align-items:center; gap:10px;">
+      <button class="btn btn-primary" data-view="marcacao" style="display:none" id="ctaBook">Marcar consulta</button>
+      <button class="nav-toggle" id="navToggle" aria-label="Abrir menu" aria-controls="primaryNav" aria-expanded="false">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M4 7h16M4 12h16M4 17h16" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" style="padding:0">
+
+  <!-- ===================== INÍCIO ===================== -->
+  <section class="view active" id="view-inicio" style="padding-top:0">
+    <div class="hero">
+      <div class="wrap">
+        <div class="hero-grid">
+          <div>
+            <h1>A sua saúde nas<br>melhores mãos.</h1>
+            <p class="lead">Cuidados de saúde com competência, eficiência e conforto — duas unidades em Luanda, mais de vinte especialidades e uma equipa pronta para cuidar de si e da sua família.</p>
+            <div class="hero-ctas">
+              <button class="btn btn-primary" data-view="marcacao">Marcar consulta</button>
+              <button class="btn btn-ghost" data-view="especialidades">Conhecer especialidades</button>
+            </div>
+            <div class="quick-links">
+              <button data-view="especialidades">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0112 6a5.5 5.5 0 019.5 6c-2.5 4.5-9.5 9-9.5 9z" stroke="#1D5FA6" stroke-width="1.6"/></svg>
+                Especialidades
+              </button>
+              <button data-view="exames">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M9 3v4M15 3v4M4 8h16M6 8v11a2 2 0 002 2h8a2 2 0 002-2V8" stroke="#1D5FA6" stroke-width="1.6"/></svg>
+                Exames
+              </button>
+              <button data-view="unidades">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M12 21s7-6.2 7-11a7 7 0 10-14 0c0 4.8 7 11 7 11z" stroke="#1D5FA6" stroke-width="1.6"/><circle cx="12" cy="10" r="2.4" stroke="#1D5FA6" stroke-width="1.6"/></svg>
+                Unidades
+              </button>
+              <button data-view="marcacao">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M4 8h16M6 4v4M18 4v4M5 8h14a1 1 0 011 1v10a1 1 0 01-1 1H5a1 1 0 01-1-1V9a1 1 0 011-1z" stroke="#1D5FA6" stroke-width="1.6"/></svg>
+                Marcações
+              </button>
+              <button data-view="campanhas">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M3 11l17-7-6 17-3-7-8-3z" stroke="#1D5FA6" stroke-width="1.6"/></svg>
+                Campanhas
+              </button>
+              <button data-view="contactos">
+                <svg viewBox="0 0 24 24" fill="none"><path d="M4 5h16v14H4z" stroke="#1D5FA6" stroke-width="1.6"/><path d="M4 6l8 7 8-7" stroke="#1D5FA6" stroke-width="1.6"/></svg>
+                Contactos
+              </button>
+            </div>
+          </div>
+          <div class="hero-art">
+            <div class="hero-photo">
+              <img src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?auto=format&fit=crop&w=1200&q=85" alt="Profissional de saúde num ambiente clínico moderno" fetchpriority="high">
+            </div>
+            <div class="stat-card" style="top:8%; left:-6%;">
+              <div class="n"><span class="count-up" data-count="2">0</span></div>
+              <div class="l">Unidades em Luanda</div>
+            </div>
+            <div class="stat-card" style="bottom:6%; right:-4%;">
+              <div class="n"><span class="count-up" data-count="20" data-suffix="+">0</span></div>
+              <div class="l">Especialidades</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="bg-tint">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <span class="eyebrow">Especialidades em destaque</span>
+          <h2>Cuidados médicos para cada fase da vida</h2>
+          <p>Uma seleção das áreas mais procuradas — veja a lista completa na página de especialidades.</p>
+        </div>
+        <div class="grid-cards reveal-group" id="homeSpecialtyGrid"></div>
+      </div>
+    </section>
+  </section>
+
+  <!-- ===================== SOBRE ===================== -->
+  <section class="view" id="view-sobre">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Sobre a clínica</span>
+        <h2>Quem é a Clínica Estoril</h2>
+      </div>
+      <div class="about-grid">
+        <div class="about-copy reveal">
+          <p>Fundada em 2015, a Clínica Estoril é uma instituição de saúde presente em Luanda, com unidades no Golf 2 e na Camama, oferecendo uma gama diversificada de serviços médicos e exames de diagnóstico.</p>
+          <p>Ao longo dos anos, a clínica tornou-se um ponto de referência para famílias na zona de Belas/Kilamba-Kiaxi, combinando atendimento em mais de vinte especialidades com parcerias junto de redes de saúde como a Medicare e a Vantagem Plus.</p>
+          <div class="stat-strip">
+            <div><div class="n"><span class="count-up" data-count="2015">0</span></div><div class="l">Fundação</div></div>
+            <div><div class="n"><span class="count-up" data-count="2">0</span></div><div class="l">Unidades</div></div>
+            <div><div class="n"><span class="count-up" data-count="20" data-suffix="+">0</span></div><div class="l">Especialidades</div></div>
+            <div><div class="n"><span class="count-up" data-count="8" data-suffix="+">0</span></div><div class="l">Tipos de exame</div></div>
+          </div>
+          <p class="draft-note">Os números acima refletem o catálogo público identificado durante a pesquisa e devem ser confirmados pela direção da clínica antes da publicação final.</p>
+        </div>
+        <div class="mission-card reveal">
+          <h3>Missão</h3>
+          <p>Cuidar da saúde dos nossos pacientes através de serviços médicos acessíveis, eficientes e orientados para o bem-estar da família.</p>
+          <p style="margin-top:18px; font-size:13px; color:#9FB7D2;">Texto de proposta — sujeito a validação e aprovação da direção da Clínica Estoril.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== ESPECIALIDADES ===================== -->
+  <section class="view" id="view-especialidades">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Especialidades</span>
+        <h2>Uma equipa multidisciplinar, num só lugar</h2>
+        <p>Consultas em mais de vinte áreas, nas duas unidades da Clínica Estoril.</p>
+      </div>
+      <div class="grid-cards reveal-group" id="fullSpecialtyGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===================== EXAMES ===================== -->
+  <section class="view" id="view-exames">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Exames e diagnóstico</span>
+        <h2>Exames disponíveis</h2>
+        <p>Diagnóstico completo, sem sair da clínica.</p>
+      </div>
+      <div class="exam-list reveal-group" id="examGrid"></div>
+    </div>
+  </section>
+
+  <!-- ===================== UNIDADES ===================== -->
+  <section class="view" id="view-unidades">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Onde estamos</span>
+        <h2>As nossas unidades em Luanda</h2>
+      </div>
+      <div class="unit-grid reveal-group">
+        <div class="unit-card reveal">
+          <div class="unit-map">
+            <img src="https://images.unsplash.com/photo-1519494026892-80bbd2d6fd0d?auto=format&fit=crop&w=1000&q=80" alt="Espaço clínico moderno" loading="lazy">
+            <span>Unidade Golf 2</span>
+          </div>
+          <div class="unit-body">
+            <h4>Clínica Estoril — Golf 2</h4>
+            <p class="addr">Vila Estoril, Rua 7, Casa nº 67, Zona 20 — Belas/Kilamba-Kiaxi, Luanda.</p>
+            <div class="unit-meta">
+              <span><svg viewBox="0 0 24 24" fill="none"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3-8.7A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .3 2 .6 3a2 2 0 01-.5 2.1L8 10a16 16 0 006 6l1.2-1.2a2 2 0 012.1-.5c1 .3 2 .5 3 .6a2 2 0 011.7 2z" stroke="currentColor" stroke-width="1.6"/></svg> +244 939 789 797</span>
+            </div>
+            <div class="unit-actions">
+              <button class="btn btn-ghost" style="flex:1">Ver no mapa</button>
+              <button class="btn btn-primary" style="flex:1" data-view="marcacao">Marcar consulta</button>
+            </div>
+          </div>
+        </div>
+        <div class="unit-card reveal">
+          <div class="unit-map">
+            <img src="https://images.unsplash.com/photo-1511174511562-5f7f18b874f8?auto=format&fit=crop&w=1000&q=80" alt="Profissional de saúde a preparar atendimento" loading="lazy">
+            <span>Unidade Camama</span>
+          </div>
+          <div class="unit-body">
+            <h4>Clínica Estoril — Camama</h4>
+            <p class="addr">Via Expressa, Condomínio BPC 2, por trás do Jardim de Rosas, Camama, Luanda.</p>
+            <div class="unit-meta">
+              <span><svg viewBox="0 0 24 24" fill="none"><path d="M22 16.9v3a2 2 0 01-2.2 2 19.8 19.8 0 01-8.6-3 19.5 19.5 0 01-6-6 19.8 19.8 0 01-3-8.7A2 2 0 014.1 2h3a2 2 0 012 1.7c.1 1 .3 2 .6 3a2 2 0 01-.5 2.1L8 10a16 16 0 006 6l1.2-1.2a2 2 0 012.1-.5c1 .3 2 .5 3 .6a2 2 0 011.7 2z" stroke="currentColor" stroke-width="1.6"/></svg> +244 943 500 700</span>
+            </div>
+            <div class="unit-actions">
+              <button class="btn btn-ghost" style="flex:1">Ver no mapa</button>
+              <button class="btn btn-primary" style="flex:1" data-view="marcacao">Marcar consulta</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CAMPANHAS ===================== -->
+  <section class="view" id="view-campanhas">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Campanhas</span>
+        <h2>Prevenção e promoções em destaque</h2>
+      </div>
+      <div class="campaign-grid reveal-group">
+        <div class="campaign-card c1 reveal">
+          <span class="badge">Em destaque</span>
+          <h4>Novembro Azul</h4>
+          <p>Rastreio e prevenção — consulta e exame com condições especiais durante o mês.</p>
+          <span class="go">Saber mais →</span>
+        </div>
+        <div class="campaign-card c2 reveal">
+          <span class="badge">Toda semana</span>
+          <h4>Atendimento sem marcação</h4>
+          <p>Às segundas e terças-feiras, para Ginecologia, Urologia, Cardiologia e Pediatria.</p>
+          <span class="go">Ver detalhes →</span>
+        </div>
+        <div class="campaign-card c3 reveal">
+          <span class="badge">Parceria</span>
+          <h4>Vantagem Plus</h4>
+          <p>Descontos para clientes Vantagem Plus em consultas e exames selecionados.</p>
+          <span class="go">Ver condições →</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== MARCAÇÃO ===================== -->
+  <section class="view bg-tint" id="view-marcacao">
+    <div class="wrap">
+      <div class="booking-grid">
+        <div class="booking-side reveal">
+          <span class="eyebrow">Marcação de consulta</span>
+          <h3>Marque em poucos passos</h3>
+          <p>Escolha a unidade, a especialidade e a data. A nossa equipa confirma consigo por telefone ou WhatsApp.</p>
+          <ul>
+            <li><span class="step-n">1</span> Escolha a unidade e a especialidade</li>
+            <li><span class="step-n">2</span> Indique a data preferida</li>
+            <li><span class="step-n">3</span> Deixe os seus dados de contacto</li>
+            <li><span class="step-n">4</span> A clínica confirma a sua marcação</li>
+          </ul>
+        </div>
+
+        <div class="reveal">
+          <form class="booking" id="bookingForm">
+            <div class="field">
+              <label>Unidade</label>
+              <div class="unit-pick">
+                <label><input type="radio" name="unidade" value="Golf 2" checked> Golf 2</label>
+                <label><input type="radio" name="unidade" value="Camama"> Camama</label>
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="esp">Especialidade</label>
+                <select id="esp" required>
+                  <option value="">Selecione...</option>
+                  <option>Clínica Geral</option>
+                  <option>Cardiologia</option>
+                  <option>Ginecologia e Obstetrícia</option>
+                  <option>Pediatria</option>
+                  <option>Medicina Interna</option>
+                  <option>Urologia</option>
+                  <option>Ortopedia</option>
+                  <option>Outra</option>
+                </select>
+              </div>
+              <div class="field">
+                <label for="data">Data preferida</label>
+                <input type="date" id="data" required>
+              </div>
+            </div>
+            <div class="field-row">
+              <div class="field">
+                <label for="nome">Nome completo</label>
+                <input type="text" id="nome" placeholder="O seu nome" required>
+              </div>
+              <div class="field">
+                <label for="tel">Telefone</label>
+                <input type="tel" id="tel" placeholder="+244 9XX XXX XXX" required>
+              </div>
+            </div>
+            <div class="field">
+              <label for="obs">Observações (opcional)</label>
+              <textarea id="obs" rows="2" placeholder="Alguma informação adicional?"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Enviar pedido de marcação</button>
+          </form>
+
+          <div class="booking-success" id="bookingSuccess">
+            <div class="tick">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </div>
+            <h4>Pedido de marcação enviado</h4>
+            <p>Este é um protótipo de demonstração — num sistema real, o pedido seria recebido pela clínica e confirmado por telefone ou WhatsApp.</p>
+            <button class="btn btn-ghost" id="bookAgain" style="margin-top:18px">Fazer nova simulação</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===================== CONTACTOS ===================== -->
+  <section class="view" id="view-contactos">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <span class="eyebrow">Fale connosco</span>
+        <h2>Contactos</h2>
+      </div>
+      <div class="contact-grid reveal-group">
+        <div class="contact-card reveal">
+          <h4>Golf 2</h4>
+          <p>Vila Estoril, Rua 7, Casa nº 67, Zona 20</p>
+          <p>+244 939 789 797</p>
+        </div>
+        <div class="contact-card reveal">
+          <h4>Camama</h4>
+          <p>Via Expressa, Condomínio BPC 2</p>
+          <p>+244 943 500 700</p>
+        </div>
+        <div class="contact-card reveal">
+          <h4>E-mail</h4>
+          <p>clinicaestoril.2017@hotmail.com</p>
+        </div>
+        <div class="contact-card reveal">
+          <h4>WhatsApp</h4>
+          <p>+244 921 666 149</p>
+        </div>
+      </div>
+      <div class="social-row">
+        <a href="#" aria-label="Facebook"><svg viewBox="0 0 24 24" fill="none"><path d="M15 8h2V5h-2a4 4 0 00-4 4v2H9v3h2v7h3v-7h2.2l.8-3H14v-1.5c0-.6.3-1 .9-1z" stroke="currentColor" stroke-width="1.4"/></svg></a>
+        <a href="#" aria-label="Instagram"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="4" stroke="currentColor" stroke-width="1.4"/><circle cx="12" cy="12" r="3.4" stroke="currentColor" stroke-width="1.4"/></svg></a>
+        <a href="#" aria-label="LinkedIn"><svg viewBox="0 0 24 24" fill="none"><rect x="4" y="4" width="16" height="16" rx="2" stroke="currentColor" stroke-width="1.4"/><path d="M8 10v6M8 8v.01M12 16v-3.6c0-1.3.9-2.4 2-2.4s2 1.1 2 2.4V16" stroke="currentColor" stroke-width="1.4"/></svg></a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="footer-row">
+      <div class="logo">Clínica Estoril</div>
+      <p>A sua saúde nas melhores mãos.</p>
+    </div>
+    <div class="footer-note">
+      <span>Protótipo comercial — conteúdo institucional final sujeito a validação da Clínica Estoril</span>
+      <span>Desenvolvido por Prime Tech Solutions</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+(function(){
+
+  // ---------- Data ----------
+  var specialties = [
+    { n:"Cardiologia", d:"Avaliação e acompanhamento cardiovascular completo." },
+    { n:"Ginecologia e Obstetrícia", d:"Acompanhamento da saúde da mulher e da gravidez." },
+    { n:"Pediatria", d:"Cuidados médicos dedicados a bebés, crianças e adolescentes." },
+    { n:"Medicina Interna", d:"Diagnóstico e tratamento de doenças do adulto." },
+    { n:"Urologia", d:"Saúde do sistema urinário e reprodutor masculino." },
+    { n:"Clínica Geral", d:"Primeira linha de cuidados, para toda a família." },
+    { n:"Cardiologia Pediátrica", d:"Cuidados cardíacos especializados para crianças." },
+    { n:"Cirurgia Geral", d:"Avaliação e procedimentos cirúrgicos gerais." },
+    { n:"Endocrinologia", d:"Diabetes, tiroide e distúrbios hormonais." },
+    { n:"Gastroenterologia", d:"Saúde digestiva e do aparelho gastrointestinal." },
+    { n:"Ginecologia", d:"Consultas e acompanhamento ginecológico regular." },
+    { n:"Hematologia", d:"Diagnóstico e acompanhamento de doenças do sangue." },
+    { n:"Medicina Geral e Familiar", d:"Cuidados contínuos para todas as idades." },
+    { n:"Nefrologia", d:"Saúde e função renal." },
+    { n:"Neurologia", d:"Diagnóstico de doenças do sistema nervoso." },
+    { n:"Oftalmologia", d:"Avaliação e cuidados da saúde ocular." },
+    { n:"Oncologia", d:"Acompanhamento clínico oncológico." },
+    { n:"Ortopedia", d:"Ossos, articulações e sistema músculo-esquelético." },
+    { n:"Otorrinolaringologia", d:"Ouvidos, nariz e garganta." },
+    { n:"Pneumologia", d:"Saúde respiratória e pulmonar." },
+    { n:"Psiquiatria", d:"Avaliação e acompanhamento da saúde mental." },
+    { n:"Reumatologia", d:"Doenças articulares, ósseas e autoimunes." },
+    { n:"Psicologia", d:"Apoio psicológico individual e familiar." }
+  ];
+
+  var exams = ["Check-up geral","Exame sumário de urina","Pesquisa de sangue oculto nas fezes","Holter","Prova de esforço","Electrocardiograma","Ecocardiograma","Mamografia"];
+
+  var iconSvg = '<svg viewBox="0 0 24 24" fill="none" stroke-width="1.6"><path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0112 6a5.5 5.5 0 019.5 6c-2.5 4.5-9.5 9-9.5 9z"/></svg>';
+
+  function cardHTML(s){
+    return '<div class="card reveal"><div class="icon">'+iconSvg+'</div><h4>'+s.n+'</h4><p>'+s.d+'</p><span class="tag">Saiba mais →</span></div>';
+  }
+
+  var homeGrid = document.getElementById('homeSpecialtyGrid');
+  specialties.slice(0,6).forEach(function(s){ homeGrid.innerHTML += cardHTML(s); });
+
+  var fullGrid = document.getElementById('fullSpecialtyGrid');
+  specialties.forEach(function(s){ fullGrid.innerHTML += cardHTML(s); });
+
+  var examGrid = document.getElementById('examGrid');
+  exams.forEach(function(e){ examGrid.innerHTML += '<div class="exam-chip reveal">'+e+'</div>'; });
+
+  // ---------- Reveal-on-scroll ----------
+  var revealObserver = ('IntersectionObserver' in window) ? new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        entry.target.classList.add('in-view');
+        revealObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold:0.12, rootMargin:'0px 0px -40px 0px' }) : null;
+
+  function observeReveals(scope){
+    var els = scope.querySelectorAll('.reveal:not(.in-view)');
+    if(revealObserver){
+      els.forEach(function(el){ revealObserver.observe(el); });
+    } else {
+      els.forEach(function(el){ el.classList.add('in-view'); });
+    }
+  }
+
+  // ---------- Count-up numbers ----------
+  function easeOutQuad(t){ return t * (2 - t); }
+  function runCountUp(el){
+    var target = parseInt(el.dataset.count, 10) || 0;
+    var suffix = el.dataset.suffix || '';
+    var duration = 1100;
+    var start = null;
+    function step(ts){
+      if(!start) start = ts;
+      var progress = Math.min((ts - start) / duration, 1);
+      var value = Math.round(target * easeOutQuad(progress));
+      el.textContent = value + suffix;
+      if(progress < 1){ requestAnimationFrame(step); }
+    }
+    requestAnimationFrame(step);
+  }
+  var countObserver = ('IntersectionObserver' in window) ? new IntersectionObserver(function(entries){
+    entries.forEach(function(entry){
+      if(entry.isIntersecting){
+        runCountUp(entry.target);
+        countObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold:0.4 }) : null;
+
+  function observeCounts(scope){
+    var els = scope.querySelectorAll('.count-up');
+    els.forEach(function(el){
+      if(countObserver){ countObserver.observe(el); }
+      else { el.textContent = (el.dataset.count || '0') + (el.dataset.suffix || ''); }
+    });
+  }
+
+  // ---------- Scroll progress + header shrink ----------
+  var progressBar = document.getElementById('scrollProgress');
+  var headerEl = document.querySelector('header.site');
+  function onScroll(){
+    var h = document.documentElement;
+    var scrolled = h.scrollTop || document.body.scrollTop;
+    var max = (h.scrollHeight || document.body.scrollHeight) - h.clientHeight;
+    progressBar.style.width = (max > 0 ? (scrolled / max) * 100 : 0) + '%';
+    headerEl.classList.toggle('scrolled', scrolled > 8);
+  }
+  document.addEventListener('scroll', onScroll, { passive:true });
+
+  // ---------- View switching ----------
+  var views = document.querySelectorAll('.view');
+  var navButtons = document.querySelectorAll('[data-view]');
+
+  function showView(name){
+    views.forEach(function(v){ v.classList.toggle('active', v.id === 'view-' + name); });
+    navButtons.forEach(function(b){ b.classList.toggle('active', b.dataset.view === name); });
+    document.getElementById('ctaBook').style.display = (name === 'inicio') ? 'inline-flex' : 'none';
+    window.scrollTo({ top: 0, behavior: 'instant' in window ? 'instant' : 'auto' });
+    history.replaceState(null, '', '#' + name);
+    var primaryNav = document.getElementById('primaryNav');
+    primaryNav.classList.remove('open');
+    document.getElementById('navToggle').setAttribute('aria-expanded', 'false');
+    document.getElementById('navToggle').setAttribute('aria-label', 'Abrir menu');
+    var activeView = document.getElementById('view-' + name);
+    if(activeView){ observeReveals(activeView); observeCounts(activeView); }
+    onScroll();
+  }
+
+  navButtons.forEach(function(b){
+    b.addEventListener('click', function(){ showView(b.dataset.view); });
+  });
+
+  document.getElementById('navToggle').addEventListener('click', function(){
+    var nav = document.getElementById('primaryNav');
+    var isOpen = nav.classList.toggle('open');
+    this.setAttribute('aria-expanded', String(isOpen));
+    this.setAttribute('aria-label', isOpen ? 'Fechar menu' : 'Abrir menu');
+  });
+
+  var initial = (location.hash || '').replace('#','') || 'inicio';
+  if(document.getElementById('view-' + initial)){ showView(initial); }
+  else { showView('inicio'); }
+
+  // ---------- Booking form ----------
+  var form = document.getElementById('bookingForm');
+  var success = document.getElementById('bookingSuccess');
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    form.classList.add('leaving');
+    setTimeout(function(){
+      form.style.display = 'none';
+      success.classList.add('active');
+    }, 220);
+  });
+  document.getElementById('bookAgain').addEventListener('click', function(){
+    form.reset();
+    success.classList.remove('active');
+    form.style.display = 'block';
+    requestAnimationFrame(function(){ form.classList.remove('leaving'); });
+  });
+
+})();
+</script>
+
+</body>
+</html>
